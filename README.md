@@ -12,7 +12,7 @@ game project 1 for SEIR-66-icepops
 - The player will lose if they get two hands, and the user will experience different conditions as Fritz or Lucy. 
 - The game will side scroll across a room for the duration of the game.
 
-![Wireframe](\images\screenshot-wireframe-project1.png)
+![Wireframe](https://github.com/Zene09/project_1/blob/main/images/screenshot-wireframe-project1.png)
 
 # Approach
 
