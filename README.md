@@ -7,7 +7,7 @@ The user should be able to move all four directions to eat treats or avoid the h
 
 # Approach
 
-Use HTML to set up the basic framework of the page and very little CSS, as most of the objects would have to be manipulated by JavaScript. I intend of creating most of my objects and uploading them as images to be manipulated. I would create an ID for 
+Use HTML to set up the basic framework of the page and very little CSS, as most of the objects would have to be manipulated by JavaScript. I intend of creating most of my objects and uploading them as images to be manipulated. I would create an ID in HTML for every object to keep have more independently moving objects for JavaScript to manipulate.
 
 # Bonus Goal Setters
 
