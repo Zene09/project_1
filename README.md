@@ -12,7 +12,8 @@ game project 1 for SEIR-66-icepops
 - The player will lose if they get two hands, and the user will experience different conditions as Fritz or Lucy. 
 - The game will side scroll across a room for the duration of the game.
 
-- Wireframe here: https://github.com/Zene09/project_1/blob/878b8600ca87dd39aef949285759e282c571f6a0/project_1_wireframe_1.pdf
+![Wireframe](images\screenshot-wireframe-project1.png)
+
 # Approach
 
 Use HTML to set up the basic framework of the page and very little CSS, as most of the objects would have to be manipulated by JavaScript. I intend of creating most of my objects and uploading them as images to be manipulated. I would create an ID in HTML for every object to keep have more independently moving objects for JavaScript to manipulate.
