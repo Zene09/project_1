@@ -3,8 +3,16 @@ game project 1 for SEIR-66-icepops
 
 # User Story
 
-The user should be able to move all four directions to eat treats or avoid the hands. They can choose to be either Fritz or Lucyfur on the start screen, who come with their own strengths and weaknesses. There are two winning conditions, beat the timer or get the points needed, each will display at the top of the screen, either in a corner or centered. The user will see how they won on the win screen, which will be different based on how they win and with which character the user chose. If the user meets the point requirement as Fritz, they will see a different screen than if they won against the timer. There should be four possible screens upon winning and two upon losing for the user to experience. The player will lose if they get two hands, and the user will experience different conditions as Fritz or Lucy. The game will side scroll across a room for the duration of the game.
+- The user should be able to move all four directions to eat treats or avoid the hands. 
+- They can choose to be either Fritz or Lucyfur on the start screen, who come with their own strengths and weaknesses. 
+- There are two winning conditions, beat the timer or get the points needed, each will display at the top of the screen, either in a corner or centered. 
+- The user will see how they won on the win screen, which will be different based on how they win and with which character the user chose. 
+    - If the user meets the point requirement as Fritz, they will see a different screen than if they won against the timer. 
+    - There should be four possible screens upon winning and two upon losing for the user to experience. 
+- The player will lose if they get two hands, and the user will experience different conditions as Fritz or Lucy. 
+- The game will side scroll across a room for the duration of the game.
 
+- Wireframe here: https://github.com/Zene09/project_1/blob/878b8600ca87dd39aef949285759e282c571f6a0/project_1_wireframe_1.pdf
 # Approach
 
 Use HTML to set up the basic framework of the page and very little CSS, as most of the objects would have to be manipulated by JavaScript. I intend of creating most of my objects and uploading them as images to be manipulated. I would create an ID in HTML for every object to keep have more independently moving objects for JavaScript to manipulate.
