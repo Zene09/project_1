@@ -1,0 +1,66 @@
+body {
+    font-family: 'Chewy', cursive;
+    background-color: #CBDFBD;
+}
+#container {
+    max-width: 500em;
+    /* height: 70vh; */
+    margin: 0 auto;
+    padding: 1em;
+    display: flex;
+    display: grid;
+    grid-gap: 1em;
+    grid-template-rows: .15fr .6fr .15fr;
+    grid-template-columns: .15fr .6fr .15fr;
+    grid-template-areas: "top-left top-center top-right"
+                          "game game game"
+                          "btm-left btm-center btm-right";
+}
+main {
+    grid-area: game;
+
+}
+canvas {
+    background-color: whitesmoke;
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+button {
+    font-family: 'Chewy', cursive;
+    font-size: 20px;
+    margin: 10px;
+}
+#reset {
+    background-color: darkgray;
+    color: whitesmoke;
+}
+#start {
+    max-width: 70%;
+    justify-content: center;
+}
+h1 {
+    color: #A44A3F;
+    background-color: #F6F4D2;
+    border-style: dotted;
+    border: 10px, #A44A3F, dotted;
+    display: flex;
+    justify-content: center;
+    padding: 10%;
+}
+div {
+    color: #F19C79;
+    background-color: #CBDFBD;
+    margin: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+#treats, #status-hands {
+    grid-area: top-center;
+    color: #A44A3F;
+}
+
+#under-treats {
+    color: black;
+}
