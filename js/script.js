@@ -6,28 +6,36 @@ const ctx = game.getContext('2d')
 game.setAttribute('width', getComputedStyle(game)['width'])
 game.setAttribute('height', getComputedStyle(game)['height'])
 
+game.width = 1425
+game.height = 712.5
 console.log('this is the canvas width', game.width)
 console.log('this is the canvas height', game.height)
 
 // creating image elements for the sprites - commented out until ready for application
-// const imgLucyfur = new Image()
-// const imgTreat = new Image()
-// const imgHand = new Image()
-// imgLucyfur.src = 'images\Lucyfur-gameplay.png'
-// imgTreat.src = 'images\treat-gameplay.png'
-// imgHand.src = 'images\hand-gameplay.png'
+const imgLucyfur = new Image()
+imgLucyfur.src = 'images/Lucyfur-gameplay.png'
 
+
+const imgTreat = new Image()
+imgTreat.src = 'images/treat-gameplay.png'
+
+
+const imgHand = new Image()
+imgHand.src = 'images/hand-gameplay.png'
+
+function drawSprites(img, sX, sY, sW, sH, dX, dY, dW, dH){
+    ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH)
+}
 
 // OOP programming
 // I need an object for the cat/Player, the hand, and the treats
 // the treats and the hands will need a class, collectable items
 class Player {
-    constructor(x, y, color, width, height) {
+    constructor() {
         this.x = x,
         this.y = y,
-        this.color = color,
-        this.width = width,
-        this.height = height,
+        this.width = 142,
+        this.height = 100,
         this.alive = true,
         // smooth animation additions
         this.speed = 15,
@@ -58,15 +66,14 @@ class Player {
         // move player looks at the direction, and sends the guy flying in whatever direction is true
         if (this.direction.up) {
             this.y -= this.speed
-            // bc we're tracking up movement, let's stop our player
-            // from exiting the top of the canvas
+            // stop from exiting the top of the canvas
             if (this.y <= 0) {
                 this.y = 0
             }
         }
         if (this.direction.left) {
             this.x -= this.speed
-            // bc we're tracking the left moves, stop him at left edge
+            // stop at left edge
             if (this.x <= 0) {
                 this.x = 0
             }
@@ -87,37 +94,100 @@ class Player {
                 this.x = game.width - this.width
             }
         }
-    }
     // we'll keep our render method nice and simple, and keep it at the bottom of our class.
-    render = function () {
-        ctx.fillStyle = this.color
-        ctx.fillRect(this.x, this.y, this.width, this.height)
+    
+    }     
+}
+class Hands {
+    constructor() {
+    this.x = Math.random() * game.width,
+    this.y = Math.random() * game.height,
+    this.width = 100,
+    this.height = 100,
+    this.alive = true,
+    // moving the pieces towards the cat
+    this.speed = Math.random() * 4 - 2,
+    this.direction = {
+        up: false,
+        down: false,
+        left: true,
+        right: false
+        }
+    }
+    update() {
+        this.x++
+        this.y++
+    }
+    draw() {
+        ctx.strokeRect(this.x, this.y, this.width, this.height)
+        ctx.drawImage()
+    }
+    moveGamePieces = function () {
+        if (this.direction.left) {
+            this.x -= this.speed
+            // stop at left edge
+            if (this.x <= 0) {
+                this.x = 0
+            } else {
+                // need to disappear once they hit the edge
+                this.alive = false
+            }
+        }    
     }
 }
-class GamePieces {
-    constructor(x, y, color, width, height) {
-    this.x = x,
-    this.y = y,
-    this.color = color,
-    this.width = width,
-    this.height = height,
-    
+class Treats {
+    constructor() {
+    this.x = Math.random() * game.width,
+    this.y = Math.random() * game.height,
+    this.width = 100,
+    this.height = 100,
     this.alive = true,
-
-    this.render = function () {
-        ctx.fillStyle = this.color
-        ctx.fillRect(this.x, this.y, this.width, this.height)
+    // moving the pieces towards the cat
+    this.speed = Math.random() * 4 - 2,
+    this.direction = {
+        up: false,
+        down: false,
+        left: true,
+        right: false
         }
+    }
+    update() {
+        this.x++
+        this.y++
+    }
+    draw() {
+        ctx.strokeRect(this.x, this.y, this.width, this.height)
+        ctx.drawImage(imgTreat, this.x, this.y)
+    }
+    moveGamePieces = function () {
+        if (this.direction.left) {
+            this.x -= this.speed
+            // stop at left edge
+            if (this.x <= 0) {
+                this.x = 0
+            } else {
+                // need to disappear once they hit the edge
+                this.alive = false
+            }
+        }    
     }
 }
 // creating each object
-let cat = new Player(40, 40, 'black', 32, 32)
-let hand = new GamePieces(30, 10, '#BB9457', 16, 16)
-let treats = new GamePieces(10, 10, '#CBFF4D', 16, 16)
+let cat = new Player()
+// hand spawn loop
+const handsArray = []
+for (let i = 0; i <= 2; i++) {
+    handsArray.push(new Hands())
+}
+// treat spawn loop
+const treatsArray = []
+for (let i = 0; i < 30; i++) {
+    treatsArray.push(new Treats())
+}
 
 // utilizing movement of each piece and rendering them to the canvas
 
-const gameLoop = () => {
+const gameLoop = () => { 
     // clearing game for start
     ctx.clearRect(0, 0, game.width, game.height)
     // the cat must detect being hit by both hand and treats
@@ -128,16 +198,13 @@ const gameLoop = () => {
     // player - cat
     
     // only if cat is alive can treats and hands render
-    if (hand.alive) {
-        hand.render()
-        detectHit(hand)
-    } 
-    if (treats.alive) {
-        treats.render()
-        detectHit(treats)
+    if (cat.alive) {
+        detectHit(cat)
     }
-    cat.render()
+    
     cat.movePlayer()
+    // hands.moveGamePieces()
+    // treats.moveGamePieces()
 }
 
 let gameInterval = setInterval(gameLoop, 60)
@@ -146,10 +213,19 @@ const stopGameLoop = () => {clearInterval(gameInterval)}
 
 // having the start button load the game
 const startButton = document.getElementById('start')
-startButton.addEventListener('click', function () {
+startButton.addEventListener('click', function (e) {
     // this starts the game when the content is loaded
-    gameInterval
+    console.log('start button clicked', gameLoop)
+    gameLoop
 })
+
+// having the reset button stop and clear gameInterval
+const resetButton = document.getElementById('reset')
+resetButton.addEventListener('click', function(e){
+    console.log('reset button clicked', stopGameLoop)
+    stopGameLoop
+})
+
 
 // two new event handlers are needed, one for keyup and one for keydown
 document.addEventListener('keydown', (e) => {
