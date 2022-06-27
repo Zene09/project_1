@@ -1,5 +1,6 @@
 export class InputHandler {
-    constructor(){
+    constructor(game){
+        this.game = game
         this.keys = []
         window.addEventListener('keydown', (e) => {
             // when the key is down, set the direction according to our
@@ -10,8 +11,8 @@ export class InputHandler {
                   e.key === 'd' 
                 ) && this.keys.indexOf(e.key) === -1){
                     this.keys.push(e.key)
-                }
-            console.log(e.key, this.keys)
+                } else if (e.key === 'Enter') this.game.debug = !this.game.debug
+            
         })
         window.addEventListener('keyup', (e) => {
             // this one will look a lil different than keydown
@@ -22,7 +23,22 @@ export class InputHandler {
                   e.key === 'd' ) {
                 this.keys.splice(this.keys.indexOf(e.key), 1)
                 }
-                console.log(e.key, this.keys)
+                
         })
+    }
+}
+// CSS Score Keeping, using ';'
+export class UI {
+    constructor(game){
+        this.game = game;
+        this.fontSize = 30;
+        this.fontFamily = 'Chewy';
+    }
+    draw(context){
+        context.font = this.fontSize + 'px ' + this.fontFamily;
+        context.textAlign = 'right';
+        context.fillStyle = this.game.fontColor;
+        //
+        context.fillText(`Score: ${this.game.score}`, 1400, 100)
     }
 }

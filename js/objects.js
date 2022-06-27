@@ -25,6 +25,7 @@ class Objects {
     }
 
     draw(context) {
+        if (this.game.debug) context.strokeRect(this.x, this.y, this.width, this.height)
         context.drawImage(this.image, this.frameX * this.width, 0, this.width, this.height, this.x, this.y, this.width, this.height)
     }
 }
@@ -33,7 +34,7 @@ export class Hand extends Objects{
         super(),
         this.game = game,
         this.width = 100,
-        this.height = 100,
+        this.height = 80,
         this.x = this.game.width - 50,
         this.y = Math.random() * this.game.height - 50,
         this.speed = 2,
@@ -44,13 +45,12 @@ export class Hand extends Objects{
         super.update(deltaTime)
     }
 }
-
 export class Treat extends Objects{
         constructor(game) {
             super(),
             this.game = game,
-            this.width = 100,
-            this.height = 100,
+            this.width = 80,
+            this.height = 80,
             this.x = this.game.width - 50,
             this.y = Math.random() * this.game.height - 50,
             this.speed = 2,
@@ -60,9 +60,4 @@ export class Treat extends Objects{
         update (deltaTime) {
             super.update(deltaTime)
         }
-        // draw(context) {
-        //     context.fillStyle = 'gainsboro',
-        //     context.fillRect(this.x, this.y, this.width, this.height),
-        //     context.drawImage(this.image, this.x, this.y, this.width, this.height)
-        // }
     }

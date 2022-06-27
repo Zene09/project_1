@@ -16,6 +16,8 @@ export class Player {
     }
     // player movement
     update(input) {
+        this.checkCollision();
+        this.checkForTreats();
         // vertical
         if (input.includes('w')) this.y--;
         else if (input.includes('s')) this.y++;
@@ -28,15 +30,44 @@ export class Player {
         if (this.x > this.game.width - this.width) this.x = this.game.width - this.width;
         if (this.y < 0) this.y = 0;
         if (this.y > this.game.height - this.height) this.y = this.game.height - this.height;
+
     }
     // render player
     draw(context) {
-        context.fillStyle = 'gainsboro',
-        context.fillRect(this.x, this.y, this.width, this.height),
+        if (this.game.debug) context.strokeRect(this.x, this.y, this.width, this.height)
         context.drawImage(this.image, this.x, this.y, this.width, this.height)
-        }
     }
-
+    checkCollision() {
+        this.game.hands.forEach(hand => {
+            if (
+                hand.x < this.x + this.width
+                && hand.x + hand.width > this.x
+                && hand.y < this.y + this.height
+                && hand.y + hand.height > this.y
+                ){
+                    hand.markedForDeletion = true
+                    this.game.score--
+                } else {
+               // no collision
+                }
+        })
+    }
+    checkForTreats = () => {
+        this.game.treats.forEach(treat => {
+            if (
+                treat.x < this.x + this.width &&
+                treat.x + treat.width > this.x &&
+                treat.y < this.y + this.height &&
+                treat.y + treat.height > this.y
+                ){
+                    treat.markedForDeletion = true;
+                    this.game.score++;
+                } else {
+                    // no treats
+                }
+            }) 
+    }
+}
 // CANVAS CRAWLER MOVEMENT NOTES //
 // smooth animation key set - setDirection
 //     setDirection = function (key) {

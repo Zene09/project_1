@@ -3,6 +3,7 @@ import { Player } from './player.js'
 import { InputHandler } from './input.js'
 import { Hand } from './objects.js'
 import { Treat } from './objects.js'
+import { UI } from './input.js'
 // setting up window event listener as the main brain of the game
 window.addEventListener('load', function() {
     const canvas = document.getElementById('canvas1')
@@ -20,7 +21,8 @@ window.addEventListener('load', function() {
             // set up player for each frame
             this.player = new Player(this),
             // player movement
-            this.input = new InputHandler(),
+            this.input = new InputHandler(this),
+            this.UI = new UI(this)
             // hand/enemy
             this.hands = []
             this.handTimer = 0,
@@ -29,6 +31,12 @@ window.addEventListener('load', function() {
             this.treats = []
             this.treatTimer = 0,
             this.treatInterval = 1000
+            // detectHit debug
+            this.debug = true
+            // score keeping
+            // this.hit = 0
+            this.score = 0
+            this.fontColor = 'white'
         }
         // update will run animation functions and calculations
         update (deltaTime) {
@@ -42,6 +50,7 @@ window.addEventListener('load', function() {
             }
             this.hands.forEach(hand => {
                 hand.update(deltaTime)
+                if (hand.markedForDeletion) this.hands.splice(this.hands.indexOf(hand), 1)
             })
             // treat/points
             if (this.treatTimer > this.treatInterval){
@@ -52,6 +61,7 @@ window.addEventListener('load', function() {
             }
             this.treats.forEach(treat => {
                 treat.update(deltaTime)
+                if (treat.markedForDeletion) this.treats.splice(this.treats.indexOf(treat), 1)
             })
         }
         // draw any in game images, keep score, visual aspects
@@ -63,6 +73,7 @@ window.addEventListener('load', function() {
             this.treats.forEach(treat => {
                 treat.draw(context)
             })
+            this.UI.draw(context)
         }
         addHand() {
             this.hands.push(new Hand(this))
