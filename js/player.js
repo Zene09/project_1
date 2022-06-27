@@ -31,7 +31,7 @@ export class Player {
     }
     // render player
     draw(context) {
-        context.fillStyle = 'red',
+        context.fillStyle = 'gainsboro',
         context.fillRect(this.x, this.y, this.width, this.height),
         context.drawImage(this.image, this.x, this.y, this.width, this.height)
         }

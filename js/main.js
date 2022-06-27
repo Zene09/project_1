@@ -1,6 +1,8 @@
 // importing player.js
-import { Player } from './player.js';
-import { InputHandler } from './input.js'; 
+import { Player } from './player.js'
+import { InputHandler } from './input.js'
+import { Hand } from './objects.js'
+import { Treat } from './objects.js'
 // setting up window event listener as the main brain of the game
 window.addEventListener('load', function() {
     const canvas = document.getElementById('canvas1')
@@ -17,30 +19,55 @@ window.addEventListener('load', function() {
             this.height = height,
             // set up player for each frame
             this.player = new Player(this),
-            this.input = new InputHandler()
+            // player movement
+            this.input = new InputHandler(),
+            // hand/enemy
+            this.hands = []
+            this.handTimer = 0,
+            this.handInterval = 1000
+            // treat/points
         }
         // update will run animation functions and calculations
-        update () {
-            this.player.update(this.input.keys)
-
+        update (deltaTime) {
+            this.player.update(this.input.keys, deltaTime)
+            // hand/enemy
+            if (this.handTimer > this.handInterval){
+                this.addHand()
+                this.handTimer = 0
+            } else {
+                this.handTimer += deltaTime
+            }
+            this.hands.forEach(hand => {
+                hand.update(deltaTime)
+            })
         }
         // draw any in game images, keep score, visual aspects
         draw (context) {
             this.player.draw(context)
+            this.hands.forEach(hand => {
+                hand.draw(context)
+            })
+        }
+        addHand() {
+            this.hands.push(new Hand(this))
+            console.log(this.hands) 
         }
     }
     const game = new Game(canvas.width, canvas.height)
     console.log(game)
-
+    let lastTime = 0
+    
     // smoothing out animation
-    function animate() {
+    function animate(timeStamp) {
+        const deltaTime = timeStamp - lastTime
+        lastTime = timeStamp
         ctx.clearRect(0, 0, canvas.width, canvas.height)
-        game.update(),
-        game.draw(ctx),
+        game.update(deltaTime)
+        game.draw(ctx)
         requestAnimationFrame(animate)
 
     }
-    animate()
+    animate(0)
 })
 // creating image elements for the sprites - commented out until ready for application
 // const imgLucyfur = new Image()
