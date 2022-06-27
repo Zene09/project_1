@@ -47,13 +47,13 @@ export class UI {
             if (this.game.gameOver){
                 context.textAlign = 'center'
                 context.font = this.fontSize * 2 + 'px ' + this.fontFamily
-                // game lose
+                // game lose - basically says if you have a score less than -3 when the timer ends you lose
                 if (this.game.score <= -3) {
                 context.fillText('To the vet we go!', this.game.width * 0.5, this.game.height * 0.5 - 20);
                 context.font = this.fontSize * 0.7 + 'px ' + this.fontFamily
                 } else {
                 // stretch - attach Lucyfur.loss animation
-                // win
+                // win - if score is greater than or equal to 15 when the timer ends, you win
                 (this.game.score >= 15 || this.game.maxTime > 30000)
                 context.fillText('Guess we\'ll reschedule for another day...', this.game.width * 0.5, this.game.height * 0.5 + 20)
             }
