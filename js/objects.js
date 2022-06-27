@@ -35,7 +35,7 @@ export class Hand extends Objects{
         this.width = 100,
         this.height = 100,
         this.x = this.game.width - 50,
-        this.y = Math.random() * this.game.height,
+        this.y = Math.random() * this.game.height - 50,
         this.speed = 2,
         this.maxFrame;
         this.image = document.getElementById('hand')
@@ -51,17 +51,18 @@ export class Treat extends Objects{
             this.game = game,
             this.width = 100,
             this.height = 100,
-            this.x = 200,
-            this.y = 200,
-            this.speedX = 20,
+            this.x = this.game.width - 50,
+            this.y = Math.random() * this.game.height - 50,
+            this.speed = 2,
+            this.maxFrame;
             this.image = document.getElementById('treat')
         }
-        update () {
-    
+        update (deltaTime) {
+            super.update(deltaTime)
         }
-        draw(context) {
-            context.fillStyle = 'gainsboro',
-            context.fillRect(this.x, this.y, this.width, this.height),
-            context.drawImage(this.image, this.x, this.y, this.width, this.height)
-        }
+        // draw(context) {
+        //     context.fillStyle = 'gainsboro',
+        //     context.fillRect(this.x, this.y, this.width, this.height),
+        //     context.drawImage(this.image, this.x, this.y, this.width, this.height)
+        // }
     }

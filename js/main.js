@@ -26,6 +26,9 @@ window.addEventListener('load', function() {
             this.handTimer = 0,
             this.handInterval = 1000
             // treat/points
+            this.treats = []
+            this.treatTimer = 0,
+            this.treatInterval = 1000
         }
         // update will run animation functions and calculations
         update (deltaTime) {
@@ -40,6 +43,16 @@ window.addEventListener('load', function() {
             this.hands.forEach(hand => {
                 hand.update(deltaTime)
             })
+            // treat/points
+            if (this.treatTimer > this.treatInterval){
+                this.addTreats()
+                this.treatTimer = 0
+            } else {
+                this.treatTimer += deltaTime
+            }
+            this.treats.forEach(treat => {
+                treat.update(deltaTime)
+            })
         }
         // draw any in game images, keep score, visual aspects
         draw (context) {
@@ -47,10 +60,17 @@ window.addEventListener('load', function() {
             this.hands.forEach(hand => {
                 hand.draw(context)
             })
+            this.treats.forEach(treat => {
+                treat.draw(context)
+            })
         }
         addHand() {
             this.hands.push(new Hand(this))
             console.log(this.hands) 
+        }
+        addTreats() {
+            this.treats.push(new Treat(this))
+            console.log(this.treats) 
         }
     }
     const game = new Game(canvas.width, canvas.height)
