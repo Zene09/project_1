@@ -25,7 +25,7 @@ class Objects {
     }
 
     draw(context) {
-        if (this.game.debug) context.strokeRect(this.x, this.y, this.width, this.height)
+        // if (this.game.debug) context.strokeRect(this.x, this.y, this.width, this.height)
         context.drawImage(this.image, this.frameX * this.width, 0, this.width, this.height, this.x, this.y, this.width, this.height)
     }
 }

@@ -12,7 +12,7 @@ export class InputHandler {
                 ) && this.keys.indexOf(e.key) === -1){
                     this.keys.push(e.key)
                 } else if (e.key === 'Enter') this.game.debug = !this.game.debug
-            
+                console.log(e.key, this.keys)
         })
         window.addEventListener('keyup', (e) => {
             // this one will look a lil different than keydown
@@ -33,12 +33,30 @@ export class UI {
         this.game = game;
         this.fontSize = 30;
         this.fontFamily = 'Chewy';
-    }
-    draw(context){
-        context.font = this.fontSize + 'px ' + this.fontFamily;
-        context.textAlign = 'right';
-        context.fillStyle = this.game.fontColor;
-        //
-        context.fillText(`Score: ${this.game.score}`, 1400, 100)
+            }
+        draw(context){
+            context.font = this.fontSize + 'px ' + this.fontFamily;
+            context.textAlign = 'center';
+            context.fillStyle = this.game.fontColor;
+            // score keeper
+            context.fillText(`Score: ${this.game.score}`, 750, 100)
+            // visual timer
+            context.font = this.fontSize * 0.9 + 'px ' + this.fontFamily
+            context.fillText(`Time: ${this.game.time}`, 750, 50)
+            // game over
+            if (this.game.gameOver){
+                context.textAlign = 'center'
+                context.font = this.fontSize * 2 + 'px ' + this.fontFamily
+                // game lose
+                if (this.game.score <= -3) {
+                context.fillText('To the vet we go!', this.game.width * 0.5, this.game.height * 0.5 - 20);
+                context.font = this.fontSize * 0.7 + 'px ' + this.fontFamily
+                } else {
+                // stretch - attach Lucyfur.loss animation
+                // win
+                (this.game.score >= 15 || this.game.maxTime > 30000)
+                context.fillText('Guess we\'ll reschedule for another day...', this.game.width * 0.5, this.game.height * 0.5 + 20)
+            }
+        }
     }
 }

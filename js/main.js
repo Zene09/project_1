@@ -32,14 +32,19 @@ window.addEventListener('load', function() {
             this.treatTimer = 0,
             this.treatInterval = 1000
             // detectHit debug
-            this.debug = true
+            // this.debug = true
             // score keeping
             // this.hit = 0
-            this.score = 0
-            this.fontColor = 'white'
+            this.score = 0,
+            this.fontColor = 'red',
+            this.time = 0,
+            this.maxTime = 30000,
+            this.gameOver = false
         }
         // update will run animation functions and calculations
         update (deltaTime) {
+            this.time += deltaTime
+            if (this.time > this.maxTime) this.gameOver = true
             this.player.update(this.input.keys, deltaTime)
             // hand/enemy
             if (this.handTimer > this.handInterval){
@@ -95,8 +100,7 @@ window.addEventListener('load', function() {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
         game.update(deltaTime)
         game.draw(ctx)
-        requestAnimationFrame(animate)
-
+        if (!game.gameOver)requestAnimationFrame(animate)
     }
     animate(0)
 })

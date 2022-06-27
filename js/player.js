@@ -34,7 +34,7 @@ export class Player {
     }
     // render player
     draw(context) {
-        if (this.game.debug) context.strokeRect(this.x, this.y, this.width, this.height)
+        // if (this.game.debug) context.strokeRect(this.x, this.y, this.width, this.height)
         context.drawImage(this.image, this.x, this.y, this.width, this.height)
     }
     checkCollision() {
